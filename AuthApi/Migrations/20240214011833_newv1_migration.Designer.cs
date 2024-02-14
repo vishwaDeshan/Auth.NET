@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using User.Management.API.Models;
 
@@ -11,9 +12,11 @@ using User.Management.API.Models;
 namespace AuthApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240214011833_newv1_migration")]
+    partial class newv1migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,21 +54,21 @@ namespace AuthApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6be9d1d4-035e-4d39-a1c3-41774db3ecb0",
+                            Id = "6278c505-df84-44d7-a38c-430d31dfa764",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "b8df3cd3-7540-4227-8259-437c261b4d60",
+                            Id = "bae2d4b4-ee27-487d-9241-89fd4fb88e01",
                             ConcurrencyStamp = "2",
                             Name = "User",
                             NormalizedName = "User"
                         },
                         new
                         {
-                            Id = "2409f62b-87e2-4073-95d4-e96b4ba5a8f6",
+                            Id = "18f2ca72-2547-4054-aabb-cfb60d8a91d9",
                             ConcurrencyStamp = "3",
                             Name = "HR",
                             NormalizedName = "HR"
