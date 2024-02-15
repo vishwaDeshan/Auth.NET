@@ -38,10 +38,24 @@ namespace AuthApi.Controllers
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = registerUser.UserName,
             };
-            var result= await _userManager.CreateAsync(user, registerUser.Password);
-            return result.Succeeded
-                ? StatusCode(StatusCodes.Status201Created, new Response { Status = "Success", Message = "User created sucessfully!" })
-                : (IActionResult)StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Failed to create the user" });
+
+            if(await _roleManager.RoleExistsAsync(role)){
+                var result = await _userManager.CreateAsync(user, registerUser.Password);
+
+                if (result.Succeeded)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Failed to create the user" });
+                }
+                //role to user
+                await _userManager.AddToRoleAsync(user,role);
+                return StatusCode(StatusCodes.Status201Created, new Response { Status = "success", Message = "User is created sucessfully" });
+
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "The role dose not exists" });
+            }
+
         }
     }
 }
