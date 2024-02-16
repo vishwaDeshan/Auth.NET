@@ -42,7 +42,7 @@ namespace AuthApi.Controllers
             if(await _roleManager.RoleExistsAsync(role)){
                 var result = await _userManager.CreateAsync(user, registerUser.Password);
 
-                if (result.Succeeded)
+                if (!result.Succeeded)
                 {
                     return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Failed to create the user" });
                 }
